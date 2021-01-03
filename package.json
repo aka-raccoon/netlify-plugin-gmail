@@ -1,6 +1,6 @@
 {
   "name": "netlify-plugin-gmail",
-  "version": "0.0.1",
+  "version": "1.0.2",
   "description": "Netlify Build plugin - Send an email from Gmail after successful/failed Netlify build.",
   "main": "src/index.js",
   "files": [
@@ -30,7 +30,11 @@
     "ava": "cross-env FORCE_COLOR=1 ava --verbose",
     "release": "release-it"
   },
-  "dependencies": {},
+  "dependencies": {
+    "ejs": "^3.1.5",
+    "googleapis": "^66.0.0",
+    "nodemailer": "^6.4.17"
+  },
   "devDependencies": {
     "@netlify/build": "^4.7.2",
     "ava": "^3.13.0",
@@ -44,5 +48,9 @@
     "netlify-cli": "^2.65.0",
     "prettier": "^2.1.2",
     "release-it": "^14.0.3"
+  },
+  "homepage": "https://github.com/racoonx2p/netlify-plugin-gmail#readme",
+  "bugs": {
+    "url": "https://github.com/racoonx2p/netlify-plugin-gmail/issues"
   }
 }
