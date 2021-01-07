@@ -1,4 +1,5 @@
-[![NPM](https://nodei.co/npm/netlify-plugin-gmail.png?compact=true)](https://npmjs.org/package/netlify-plugin-gmail)
+[![NPM](https://nodei.co/npm/netlify-plugin-gmail.png?mini=true)](https://npmjs.org/package/netlify-plugin-gmail)  
+[![Netlify Status](https://api.netlify.com/api/v1/badges/d9e3c95e-a578-40f2-b4e8-6be9a7ad1dc4/deploy-status)](https://app.netlify.com/sites/netlify-plugin-gmail/deploys)
 
 # netlify-plugin-gmail 📨
 
