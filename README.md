@@ -46,7 +46,7 @@ authentication.
 ### To use **Oauth2**
 
 1. First, let’s set up an OAuth Client ID for your app.
-2. Go to Google Cloud and create a new project.
+2. Go to [Google Cloud APIs](https://console.developers.google.com/) and create a new project.
 3. Search for “APIs & Services”
 4. Click on “Credentials” > Click “+ Create credentials” > “OAuth client ID”
    Type: Web Application Name: “Enter Your Name of Client” Authorized redirect
