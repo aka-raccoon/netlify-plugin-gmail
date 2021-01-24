@@ -3,14 +3,16 @@ const nodemailer = require('nodemailer')
 const ejs = require('ejs')
 const { google } = require('googleapis')
 
-async function sendGmail(template) {
+async function sendGmail(template, { utils }) {
   const { OAuth2 } = google.auth
 
   const GetEnvironmentVar = (varname, defaultValue = undefined) => {
     const result = process.env[varname]
     if (result !== undefined) return result
     if (defaultValue === undefined)
-      throw new Error(`Environment variable "${varname}" not set.`)
+      utils.build.failPlugin('Sending email has failed! ❌.', {
+        error: `Environment variable "${varname}" not set.`,
+      })
     return defaultValue
   }
 
@@ -60,7 +62,11 @@ async function sendGmail(template) {
       refreshToken: GMAIL_REFRESH_TOKEN,
       accessToken,
     }
-  } else throw new Error(`Invalid GMAIL_AUTH_TYPE: "${GMAIL_AUTH_TYPE}".`)
+  } else {
+    utils.build.failPlugin('Sending email has failed! ❌.', {
+      error: `Invalid GMAIL_AUTH_TYPE: "${GMAIL_AUTH_TYPE}".`,
+    })
+  }
 
   const ON_SUCCESS_SUBJECT = GetEnvironmentVar(
     'ON_SUCCESS_SUBJECT',
@@ -115,20 +121,16 @@ async function sendGmail(template) {
   await smtpTransport.sendMail(mailOptions)
 }
 
-netlifyPlugin = {
+const netlifyPlugin = {
   onSuccess: async ({ utils }) => {
-    await sendGmail('onSuccess').catch((error) =>
-      utils.build.failPlugin('Sending email has failed! ❌.', { error }),
-    )
+    await sendGmail('onSuccess', { utils })
     utils.status.show({
       title: 'SUCCESS ✔',
       summary: 'Email has been sent sucessfully! 📨',
     })
   },
   onError: async ({ utils }) => {
-    await sendGmail('onError').catch((error) =>
-      utils.build.failPlugin('Sending email has failed! ❌.', { error }),
-    )
+    await sendGmail('onError', { utils })
     utils.status.show({
       title: 'Status',
       summary: 'Email about failed build has been sent sucessfully! 📨',
