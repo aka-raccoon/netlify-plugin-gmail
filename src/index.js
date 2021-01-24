@@ -115,27 +115,25 @@ async function sendGmail(template) {
   await smtpTransport.sendMail(mailOptions)
 }
 
-function netlifyPlugin() {
-  return {
-    onSuccess: async ({ utils }) => {
-      await sendGmail('onSuccess').catch((error) =>
-        utils.build.failPlugin('Sending email has failed! ❌.', { error }),
-      )
-      utils.status.show({
-        title: 'SUCCESS ✔',
-        summary: 'Email has been sent sucessfully! 📨',
-      })
-    },
-    onError: async ({ utils }) => {
-      await sendGmail('onError').catch((error) =>
-        utils.build.failPlugin('Sending email has failed! ❌.', { error }),
-      )
-      utils.status.show({
-        title: 'Status',
-        summary: 'Email about failed build has been sent sucessfully! 📨',
-      })
-    },
-  }
+netlifyPlugin = {
+  onSuccess: async ({ utils }) => {
+    await sendGmail('onSuccess').catch((error) =>
+      utils.build.failPlugin('Sending email has failed! ❌.', { error }),
+    )
+    utils.status.show({
+      title: 'SUCCESS ✔',
+      summary: 'Email has been sent sucessfully! 📨',
+    })
+  },
+  onError: async ({ utils }) => {
+    await sendGmail('onError').catch((error) =>
+      utils.build.failPlugin('Sending email has failed! ❌.', { error }),
+    )
+    utils.status.show({
+      title: 'Status',
+      summary: 'Email about failed build has been sent sucessfully! 📨',
+    })
+  },
 }
 
 module.exports = netlifyPlugin
