@@ -18,7 +18,7 @@ async function sendGmail(template, { utils }) {
 
   const GMAIL_SENDER_EMAIL = GetEnvironmentVar('GMAIL_SENDER_EMAIL')
   const GMAIL_RECEIVER_EMAIL = GetEnvironmentVar('GMAIL_RECEIVER_EMAIL')
-  const GMAIL_AUTH_TYPE = GetEnvironmentVar('GMAIL_AUTH_TYPE', 'oauth2')
+  const GMAIL_AUTH_TYPE = 'oauth2'
 
   const data = {
     URL: process.env['URL'],
@@ -30,42 +30,29 @@ async function sendGmail(template, { utils }) {
 
   let authConfig
 
-  if (GMAIL_AUTH_TYPE.toLowerCase() === 'login') {
-    const GMAIL_PASSWORD = GetEnvironmentVar('GMAIL_PASSWORD')
-    authConfig = {
-      type: GMAIL_AUTH_TYPE,
-      user: GMAIL_SENDER_EMAIL,
-      pass: GMAIL_PASSWORD,
-    }
-  } else if (GMAIL_AUTH_TYPE.toLowerCase() === 'oauth2') {
-    const OAUTH_PLAYGROUND = GetEnvironmentVar(
-      'OAUTH_PLAYGROUND',
-      'https://developers.google.com/oauthplayground',
-    )
-    const GMAIL_CLIENT_ID = GetEnvironmentVar('GMAIL_CLIENT_ID')
-    const GMAIL_CLIENT_SECRET = GetEnvironmentVar('GMAIL_CLIENT_SECRET')
-    const GMAIL_REFRESH_TOKEN = GetEnvironmentVar('GMAIL_REFRESH_TOKEN')
-    const oauth2Client = new OAuth2(
-      GMAIL_CLIENT_ID,
-      GMAIL_CLIENT_SECRET,
-      OAUTH_PLAYGROUND,
-    )
-    oauth2Client.setCredentials({
-      refresh_token: GMAIL_REFRESH_TOKEN,
-    })
-    const accessToken = oauth2Client.getAccessToken()
-    authConfig = {
-      type: GMAIL_AUTH_TYPE,
-      user: GMAIL_SENDER_EMAIL,
-      clientId: GMAIL_CLIENT_ID,
-      clientSecret: GMAIL_CLIENT_SECRET,
-      refreshToken: GMAIL_REFRESH_TOKEN,
-      accessToken,
-    }
-  } else {
-    utils.build.failPlugin('Sending email has failed! ❌.', {
-      error: `Invalid GMAIL_AUTH_TYPE: "${GMAIL_AUTH_TYPE}".`,
-    })
+  const OAUTH_PLAYGROUND = GetEnvironmentVar(
+    'OAUTH_PLAYGROUND',
+    'https://developers.google.com/oauthplayground',
+  )
+  const GMAIL_CLIENT_ID = GetEnvironmentVar('GMAIL_CLIENT_ID')
+  const GMAIL_CLIENT_SECRET = GetEnvironmentVar('GMAIL_CLIENT_SECRET')
+  const GMAIL_REFRESH_TOKEN = GetEnvironmentVar('GMAIL_REFRESH_TOKEN')
+  const oauth2Client = new OAuth2(
+    GMAIL_CLIENT_ID,
+    GMAIL_CLIENT_SECRET,
+    OAUTH_PLAYGROUND,
+  )
+  oauth2Client.setCredentials({
+    refresh_token: GMAIL_REFRESH_TOKEN,
+  })
+  const accessToken = oauth2Client.getAccessToken()
+  authConfig = {
+    type: GMAIL_AUTH_TYPE,
+    user: GMAIL_SENDER_EMAIL,
+    clientId: GMAIL_CLIENT_ID,
+    clientSecret: GMAIL_CLIENT_SECRET,
+    refreshToken: GMAIL_REFRESH_TOKEN,
+    accessToken,
   }
 
   const ON_SUCCESS_SUBJECT = GetEnvironmentVar(
