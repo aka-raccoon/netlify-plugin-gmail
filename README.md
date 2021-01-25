@@ -11,8 +11,8 @@
 
 > A Netlify Build Plugin for Gmail
 
-This build plugin sends email from Gmail account on every
-[Netlify](https://www.netlify.com/) succesfull or failed build.
+This build plugin provides an alternative to [Netlify's native e-mail notification offering](https://docs.netlify.com/site-deploys/notifications/#email-notifications) by sending e-mail from a Gmail account on every
+[Netlify](https://www.netlify.com/) successful or failed build.
 
 ## File-based installation
 
