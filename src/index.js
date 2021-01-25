@@ -53,6 +53,7 @@ async function sendGmail(template, { utils }) {
     clientSecret: GMAIL_CLIENT_SECRET,
     refreshToken: GMAIL_REFRESH_TOKEN,
     accessToken,
+    expires: Date.now(),
   }
 
   const ON_SUCCESS_SUBJECT = GetEnvironmentVar(
