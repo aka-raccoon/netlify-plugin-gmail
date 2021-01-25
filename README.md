@@ -11,8 +11,8 @@
 
 > A Netlify Build Plugin for Gmail
 
-This build plugin sends email from Gmail account on every
-[Netlify](https://www.netlify.com/) succesfull or failed build.
+This build plugin provides an alternative to [Netlify's native e-mail notification offering](https://docs.netlify.com/site-deploys/notifications/#email-notifications) by sending e-mail from a Gmail account on every
+[Netlify](https://www.netlify.com/) successful or failed build.
 
 ## File-based installation
 
@@ -39,14 +39,11 @@ This build plugin sends email from Gmail account on every
 
 You need to configure this plugin using
 [build environment variables](https://docs.netlify.com/configure-builds/environment-variables/)
-and configure your Gmail account. You can choose between
-[Oauth2](#to-use-oauth2) and [user/password](#to-use-userpassword-auth)
-authentication.
-
-### To use **Oauth2**
+and configure your Gmail account. Plugin is using [Oauth2](#to-use-oauth2) authentication.
 
 1. First, let’s set up an OAuth Client ID for your app.
-2. Go to [Google Cloud APIs](https://console.developers.google.com/) and create a new project.
+2. Go to [Google Cloud APIs](https://console.developers.google.com/) and create
+   a new project.
 3. Search for “APIs & Services”
 4. Click on “Credentials” > Click “+ Create credentials” > “OAuth client ID”
    Type: Web Application Name: “Enter Your Name of Client” Authorized redirect
@@ -72,32 +69,16 @@ GMAIL_REFRESH_TOKEN="8//423789fafafavaae-jkflamflaga6464848684_faf13fa16f4a984" 
 OAUTH_PLAYGROUND = "https://developers.google.com/oauthplayground" # optional - this url is set by default
 ```
 
-### To use **user/password auth**
-
-1. Allow
-   [less secure apps](https://myaccount.google.com/lesssecureapps?pli=1&rapt=AEjHL4PfzYBkjM-DQN1cmN1HAEp-sTofABeLfuoBW8roI-GV3opBpU3vg8biEJ-U-hSSQ-B1Vkw24nXrG3dW-mvCxJy8pEOl1g)
-   in your google account.
-2. Set following
-   [build environment variables](https://docs.netlify.com/configure-builds/environment-variables/):
-
-```shell
-GMAIL_SENDER_EMAIL="joedoe@email.com"
-GMAIL_RECEIVER_EMAIL="jonhndoe@email.com" # comma separated list of recipients email addresses
-GMAIL_PASSWORD="YourSecret" # example value
-GMAIL_AUTH_TYPE="login"
-```
-
 ### All environment variables
 
 | Variable                 | State                               | Example                                            | Default value                                 |
 | ------------------------ | ----------------------------------- | -------------------------------------------------- | --------------------------------------------- |
 | GMAIL_SENDER_EMAIL       | Required                            | `jonhndoe@email.com`                               |                                               |
 | GMAIL_RECEIVER_EMAIL     | Required                            | `joedoe@email.com, johndoe@email.com`              |                                               |
-| GMAIL_CLIENT_ID          | Required if Oauth                   | `12354613-blablablabla.apps.googleusercontent.com` |                                               |
-| GMAIL_CLIENT_SECRET      | Required if Oauth                   | `q_af1461fafa49faefvv3`                            |                                               |
-| GMAIL_REFRESH_TOKEN      | Required if Oauth                   |                                                    |                                               |
+| GMAIL_CLIENT_ID          | Required                            | `12354613-blablablabla.apps.googleusercontent.com` |                                               |
+| GMAIL_CLIENT_SECRET      | Required                            | `q_af1461fafa49faefvv3`                            |                                               |
+| GMAIL_REFRESH_TOKEN      | Required                            |                                                    |                                               |
 | OAUTH_PLAYGROUND         | Optional                            | `https://developers.google.com/oauthplayground`    | https://developers.google.com/oauthplayground |
-| GMAIL_PASSWORD           | Required if auth with user/password | `YourSecret`                                       |                                               |
 | GMAIL_AUTH_TYPE          | Optional                            | `oauth2` or `login`                                | oauth2                                        |
 | ON_SUCCESS_BODY_FILEPATH | Optional                            | `/templates/success-message.ejs`                   | ${\_\_dirname}/templates/onSuccess.ejs        |
 | ON_SUCCESS_SUBJECT       | Optional                            | `[NETLIFY] Build successfull 🎉`                   | [NETLIFY] Build successfull 🎉                |
