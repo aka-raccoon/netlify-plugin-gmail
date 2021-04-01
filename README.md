@@ -81,9 +81,9 @@ OAUTH_PLAYGROUND = "https://developers.google.com/oauthplayground" # optional - 
 | OAUTH_PLAYGROUND         | Optional                            | `https://developers.google.com/oauthplayground`    | https://developers.google.com/oauthplayground |
 | GMAIL_AUTH_TYPE          | Optional                            | `oauth2` or `login`                                | oauth2                                        |
 | ON_SUCCESS_BODY_FILEPATH | Optional                            | `/templates/success-message.ejs`                   | ${\_\_dirname}/templates/onSuccess.ejs        |
-| ON_SUCCESS_SUBJECT       | Optional                            | `[NETLIFY] Build successfull 🎉`                   | [NETLIFY] Build successfull 🎉                |
+| ON_SUCCESS_SUBJECT       | Optional                            | `[NETLIFY] Build successful 🎉`                   | [NETLIFY] Build successful 🎉                |
 | ON_ERROR_BODY_FILEPATH   | Optional                            | `/templates/error-message.ejs`                     | ${\_\_dirname}/templates/onError.ejs          |
-| ON_ERROR_SUBJECT         | Optional                            | `[NETLIFY] Build unsuccessfull ❌`                 | [NETLIFY] Build unsuccessfull ❌              |
+| ON_ERROR_SUBJECT         | Optional                            | `[NETLIFY] Build unsuccessful ❌`                 | [NETLIFY] Build unsuccessful ❌              |
 
 ### Custom email subject and body
 
@@ -93,7 +93,7 @@ To change **subject**, set either `ON_SUCCESS_SUBJECT` or `ON_ERROR_SUBJECT`
 environment variable.
 
 ```shell
-ON_SUCCESS_SUBJECT="My custom subject for successfull build"
+ON_SUCCESS_SUBJECT="My custom subject for successful build"
 ON_ERROR_SUBJECT="My custom subject for failed build"
 ```
 
@@ -108,7 +108,7 @@ ON_ERROR_BODY_FILEPATH=`/templates/success-message.ejs`
 Create file `/templates/success-message.ejs` and put there your custom content:
 
 ```html
-<h1>Netlify build for site <%= SITE_NAME %> has been sucesfull.</h1>
+<h1>Netlify build for site <%= SITE_NAME %> has been successful.</h1>
 <p>
   Finished processing build request. Site <%= SITE_NAME %> is live ✨.
   <br />
